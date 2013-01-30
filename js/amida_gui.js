@@ -115,7 +115,7 @@
 	};
 
 	var refreshCountDisp = function(){
-		$("disp").innerHTML = $("sel_entry").getElementsByTagName("option").length;
+		$("alter_count").innerHTML = $("sel_entry").getElementsByTagName("option").length;
 	};
 
 	/**

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>あみだくじツール</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="">
+	<meta name="keywords" content="あみだくじ 阿弥陀籤">
+	<meta name="description" content="あみだくじツール">
 	<link rel="stylesheet" href="css/amida.css" media="all">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="js/amida.js"></script>
@@ -14,16 +14,20 @@
 
 <h1>あみだくじツール</h1>
 
-<div style="padding-left:40px;">
+<div class="amida">
 	<div class="inputs">
 		<div>ゴール選択肢</div>
-		<input type="text" id="text_entry"></input>
-		<input type="button" value="追加 >>" id="btn_entry"></input>
+		<div>
+			<input type="text" id="text_entry"></input>
+			<input type="button" value="追加 >>" id="btn_entry"></input>
+		</div>
 	</div>
 	<div class="inputs">
-		<span id="disp">0</span>
+		<div>
+			<span id="alter_count">0</span>
+		</div>
 		<div class="inputs">
-			<select id="sel_entry" size="4" multiple="multiple"></select>
+			<select id="sel_entry" size="10" multiple="multiple"></select>
 		</div>
 		<div class="inputs">
 			<input type="button" value="削除" id="btn_remove"></input><br>
@@ -44,20 +48,20 @@
 	</div>
 </div>
 
-<div class="usage">
+<div id="usage">
 <div>【使い方】</div>
 <ol>
 	<li>
 		<div>「ゴール選択肢」下のボックス内に「当たり」「はずれ」などの単語を入力し，選択肢の数だけ追加ボタンを押す。</div>
 		<div>(例：当たり２本，はずれ３本の場合…当たりと入力し，追加を２回クリック→はずれと入力し，追加を３回クリック)</div>
+		<div class="note">※ゴール選択肢を作成途中で修正したい場合は，その選択肢を選んだ状態で，「削除」ボタンをクリックする。</div>
+		<div class="note">※全部消去する場合は「クリア」ボタンを使う。</div>
 	</li>
 	<li>
 		<div>「作成」ボタンを押すと，あみだくじが作成される。</div>
 	</li>
 	<li>
 		<div>作成されたあみだくじのボックス部分に各自の名前を入れて，「Go」ボタンをクリックすると結果が表示される。</div>
-		<div>※ゴール選択肢を作成途中で修正したい場合は，その選択肢を選んだ状態で，「削除」ボタンをクリックする。</div>
-		<div>全部消去する場合は「クリア」ボタンを使う。</div>
 	</li>
 </ol>
 </div>
