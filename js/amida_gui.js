@@ -133,9 +133,10 @@ $(function(){
 			tr += '</th>';
 		}
 		tr += '</tr>';
-		var thead = $("#amida_head");
-		thead.html(tr);
-		$("#amida_head > input:button").click(on_click_go);
+		$("#amida_head").html(tr);
+		$("#amida_head input:button").click(function(){
+			on_click_go($(this));
+		});
 	};
 
 	var make_amida_foot = function(entries){
@@ -166,21 +167,22 @@ $(function(){
 		$("#amida_body").html(tr);
 	};
 
-	var on_click_go = function(e){
-		var inps = $("#amida_head > input:text");
-		var id = $(this).attr('idnum');
-		if ( inps[id].val() === "" ){
-			inps[id].val("Unknown" + (id + 1));
+	var on_click_go = function(btn){
+		var inps = $("#amida_head input:text");
+		var id = Number(btn.attr('idnum'));
+		var inp = $(inps[id]);
+		if ( inp.val() === "" ){
+			inp.val("Unknown" + (id + 1));
 		}
 		clear_lot_line();
-		draw_lot_line(id, inps[id].val());
+		draw_lot_line(id, inp.val());
 	};
 
 	var clear_lot_line = function(){
-		var tds = $("#amida_body > td");
+		var tds = $("#amida_body td");
 		for ( var i = 0, len = tds.length; i < len; ++i ){
-			tds[i].removeClass("rooting_l");
-			tds[i].removeClass("rooting_b");
+			$(tds[i]).removeClass("rooting_l");
+			$(tds[i]).removeClass("rooting_b");
 		}
 	};
 
@@ -191,7 +193,7 @@ $(function(){
 			targ.addClass("rooting_b");
 		}
 		else if ( f > t ){
-			targ.addClass("rooting_b");
+			get_target_cell(r, t).addClass("rooting_b");
 		}
 	};
 
@@ -200,9 +202,9 @@ $(function(){
 		var step_count = g_amida.getStepCount();
 		var r, len = step_count + AMIDA_FOOT;
 		for ( r = step_count; r < len; ++r ){
-			addClassName( getTargetCell(r, result), "rooting_l" );
+			get_target_cell(r, result).addClass("rooting_l");
 		}
-		var th = $("#amida_foot > th:eq("+result+")").css("color", "black");
+		var th = $("#amida_foot th:eq("+result+")").css("color", "black");
 	};
 
 	var get_target_cell = function(r, c){
