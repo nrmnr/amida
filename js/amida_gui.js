@@ -128,7 +128,7 @@ $(function(){
 		var tr = '<tr>';
 		for ( var c = 0; c < num; ++c ){
 			tr += '<th>';
-			tr += '<input type="text" />';
+			tr += '<input type="text" class="player"/>';
 			tr += '<div><input type="button" value="Go" idnum="' + c + '" /></div>';
 			tr += '</th>';
 		}
@@ -172,7 +172,7 @@ $(function(){
 		var id = Number(btn.attr('idnum'));
 		var inp = $(inps[id]);
 		if ( inp.val() === "" ){
-			inp.val("Unknown" + (id + 1));
+			inp.val("Player" + (id + 1));
 		}
 		clear_lot_line();
 		draw_lot_line(id, inp.val());
