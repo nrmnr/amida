@@ -3,6 +3,10 @@
  * css
  */
 
+.amida {
+	padding-left:40px;
+}
+
 .inputs {
 	float: left;
 	margin-left: 5px;
@@ -13,14 +17,14 @@
 }
 
 #text_entry {
-	width: 100px;
+	width: 10em;
 }
 
 #btn_entry {
 }
 
 #sel_entry {
-	width: 100px;
+	width: 10em;
 }
 
 #btn_remove {
@@ -31,31 +35,36 @@
 
 .make {
 	display: block;
-	margin: 10px;
+	margin: 10px 5px;
 	clear: both;
 }
 
-#disp {
+#btn_make {
+	width: 200px;
+}
+
+#alter_count {
 	display: block;
 	font-size: 9pt;
 	width: 4em;
-	height: 1em;
+	height: 1.2em;
 	margin-left: 5px;
-	padding: 2px;
+	padding: 0.1em;
 	text-align: right;
 	color: blue;
 	border: 1px solid black;
-	background-color: #ccc;
+	background-color: #eee;
 }
 
 #amida_screen {
-	background-color: #efe;
+	/* background-color: #efe; */
+	/* width: 640px; */
+	/* height: 540px; */
+	background-color: white;
 	padding: 20px;
 }
 
 #amida_table {
-	width: 640px;
-	height: 540px;
 	border-collapse: separate;
 	border-spacing: 0px;
 	/*border-collapse: collapse;*/ /*にすると，Firefoxで正しく描画されない*/
@@ -94,9 +103,18 @@ td.rooting_b {
 #amida_foot th {
 	text-align: left;
 	vertical-align: top;
-	color: #efe;
+	color: white;
 }
 
-.usage {
+#usage {
+	width: 600px;
+	margin-left: 40px;
+	padding: 1em;
+	font-size: 10pt;
 	background-color: #f2f2ea;
+}
+
+#usage .note {
+	text-indent: -1em;
+	margin-left: 1em;
 }
