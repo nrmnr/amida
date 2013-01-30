@@ -97,6 +97,10 @@ td.rooting_b {
 	height: 30px;
 }
 
+#amida_head > input:text {
+	width: 60px;
+}
+
 #amida_foot th {
 	text-align: left;
 	vertical-align: top;

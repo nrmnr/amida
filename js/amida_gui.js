@@ -2,120 +2,58 @@
  * あみだくじGUI
  */
 
-(function(){
+$(function(){
 
 	var AMIDA_STEP = 20;
 	var AMIDA_FOOT = 5;
 
 	var g_amida = null;
 
-	var $ = function(element){
-		if (typeof element === 'string') element = document.getElementById(element);
-		return element;
-	};
-
-	var addClassName = function(element /*, cname ...*/){
-		var i, cname, len = arguments.length;
-		if ( len < 2 ) return;
-		for ( i = 1; i < len; ++i ){
-			cname = arguments[i];
-			if ( !isExistsClassName(element, cname) ){
-				element.className += " " + cname;
-			}
-		}
-	};
-
-	var removeClassName = function(element /*, cname ...*/){
-		var i, j, cname, cnames, new_cnames, len = arguments.length;
-		if ( len < 2 ) return;
-		cnames = element.className.split(" ");
-		var cn_len = cnames.length;
-		for ( i = 1; i < len; ++i ){
-			cname = arguments[i];
-			for ( j = 0; j < cn_len; ++j ){
-				if ( cnames[j] === cname ){
-					cnames[j] = "";
-				}
-			}
-		}
-		element.className = cnames.join(" ").replace(/ +/g, " ");
-	};
-
-	var isExistsClassName = function(element, cname){
-		var cnames = element.className.split(" ");
-		for ( var i = 0; i < cnames.length; ++i ){
-			if ( cnames[i] === cname ){
-				return true;
-			}
-		}
-		return false;
-	};
-
-	var addListener = (function() {
-		if ( window.addEventListener ) {
-			return function(el, type, fn){ el.addEventListener(type, fn, false); };
-		}
-		else if ( window.attachEvent ) {
-			return function(el, type, fn) {
-				var f = function(){ fn.call(el, window.event); };
-				el.attachEvent('on'+type, f);
-			};
-		}
-		else {
-			return function(el, type, fn){ el['on'+type] = fn; };
-		}
-	})();
-
 	/**
 	 * Entry
 	 */
 
-	var on_keydown = function(event){
-		var e = event || window.event;
-		if ( e.type === "keydown" && e.keyCode === 13 ){
+	$("#btn_entry").click(function(){
+		on_btn_entry();
+	});
+
+	$("#text_entry").keydown(function(e){
+		if ( e.keyCode === 13 ){
 			on_btn_entry();
 		}
-	};
+	});
 
 	var on_btn_entry = function(){
-		var text = $("text_entry").value;
+		var text = $("#text_entry").val();
 		if ( text !== "" ){
-			appendOption(text);
-			var ent = $("text_entry");
-			ent.select();
-			ent.focus();
+			append_option(text);
+			$("#text_entry").select().focus();
 		}
 	};
 
-	var appendOption = function(text){
-		var opt = document.createElement("option");
-		opt.appendChild( document.createTextNode(text) );
-		$("sel_entry").appendChild(opt);
-		refreshCountDisp();
+	var append_option = function(text){
+		var opt = $("<option>" + text + "</option>")
+		$("#sel_entry").append(opt);
+		refresh_count();
 	};
 
-	var on_btn_remove = function(){
-		var opts = $("sel_entry").getElementsByTagName("option");
-		var i;
-		for ( i = opts.length - 1; i >= 0; --i ){
+	$("#btn_remove").click(function(){
+		var opts = $("#sel_entry > option");
+		for ( var i = opts.length - 1; i >= 0; --i ){
 			if ( opts[i].selected ){
-				$("sel_entry").removeChild(opts[i]);
+				opts[i].remove();
 			}
 		}
-		refreshCountDisp();
-	};
+		refresh_count();
+	});
 
-	var on_btn_clear = function(){
-		var opts = $("sel_entry").getElementsByTagName("option");
-		while ( opts.length > 0 ){
-			$("sel_entry").removeChild(opts[0]);
-			opts.shift
-		}
-		refreshCountDisp();
-	};
+	$("#btn_clear").click(function(){
+		$("#sel_entry").html("");
+		refresh_count();
+	});
 
-	var refreshCountDisp = function(){
-		$("alter_count").innerHTML = $("sel_entry").getElementsByTagName("option").length;
+	var refresh_count = function(){
+		$("#alter_count").html($("#sel_entry > option").length);
 	};
 
 	/**
@@ -124,205 +62,158 @@
 
 	var COOKIEENTRY = "AMIDAENTRY=";
 
-	var on_btn_make = function(){
-		var entries = getEntries();
+	$("#btn_make").click(function(){
+		var entries = get_entries();
 		if ( entries.length >= 2 ){
 			var nextYear = new Date();
 			nextYear.setFullYear(nextYear.getFullYear() + 1);
 			document.cookie = COOKIEENTRY + encodeURIComponent(entries.join(",")) + "; expires=" + nextYear.toGMTString();
-			makeAmida();
+			make_amida();
 		}
-	};
+	});
 
-	var loadEntries = function(){
+	var load_entries = function(){
 		var cookiestr = document.cookie;
 		var pos = cookiestr.indexOf(COOKIEENTRY);
-		if ( pos === -1 ){
-			return false;
-		}
+		if ( pos === -1 ) return false;
+
 		pos += COOKIEENTRY.length;
 		var end = cookiestr.indexOf(";", pos);
 		if ( end === -1 ) end = cookiestr.length;
 		var entstr = decodeURIComponent(cookiestr.substring(pos, end));
-		if ( entstr === "" ){
-			return false;
-		}
+		if ( entstr === "" ) return false;
+
 		var entries = entstr.split(",");
 		on_btn_clear();
 		var i, len = entries.length;
 		for ( i = 0; i < len; ++i ){
-			appendOption(entries[i]);
+			append_option(entries[i]);
 		}
 		return ( len >= 2 );
 	};
 
-	var makeAmida = function(){
-		var entries = getEntries();
+	var make_amida = function(){
+		var entries = get_entries();
 		var len = entries.length;
 		if ( len >= 2 ){
-			randomizeArray(entries);
-			makeAmidaHead(len);
-			makeAmidaFoot(entries);
+			randomize_array(entries);
+			make_amida_head(len);
+			make_amida_foot(entries);
 			g_amida = new Amida(len, AMIDA_STEP);
-			makeAmidaBody(entries);
+			make_amida_body(entries);
 		}
 	};
 
-	var randomizeArray = function(arr){
-		var i, len = arr.length
-		for ( i = 0; i < len - 1; ++i ){
-			var p = Math.floor( Math.random() * (len-i) ) + i;
-			var t = arr[i];
-			arr[i] = arr[p];
-			arr[p] = t;
+	var randomize_array = function(arr){
+		for ( var i = arr.length-1; i > 0; --i ){
+			var p = Math.floor( Math.random() * (i+1) );
+			if ( p != i ){
+				var t = arr[i];
+				arr[i] = arr[p];
+				arr[p] = t;
+			}
 		}
 	};
 
-	var getEntries = function(){
-		var opts = $("sel_entry").getElementsByTagName("option");
+	var get_entries = function(){
+		var opts = $("#sel_entry > option");
 		var entries = [];
-		var i, len = opts.length;
-		for ( i = 0; i < len; ++i ){
+		for ( var i = 0, len = opts.length; i < len; ++i ){
 			if ( opts[i].text ) entries.push( opts[i].text );
 		}
 		return entries;
 	};
 
-	var makeAmidaHead = function(num){
-		var thead = $("amida_head");
-		removeAllChild(thead);
-		var tr = document.createElement("tr");
-		var c, inp, btn, btndiv, th;
+	var make_amida_head = function(num){
+		var tr = '<tr>';
 		for ( var c = 0; c < num; ++c ){
-			inp = document.createElement("input");
-			inp.style.width = "80px";
-			inp.type = "text";
-
-			btn = document.createElement("input");
-			btn.type = "button";
-			btn.value = "Go";
-			btn.idnum = c;
-			btn.onclick = on_click_go;
-
-			btndiv = document.createElement("div");
-			btndiv.appendChild(btn);
-
-			th = document.createElement("th");
-			th.appendChild(btndiv);
-			th.appendChild(inp);
-			tr.appendChild(th);
+			tr += '<th>';
+			tr += '<input type="text" />';
+			tr += '<div><input type="button" value="Go" idnum="' + c + '" /></div>';
+			tr += '</th>';
 		}
-		thead.appendChild(tr);
+		tr += '</tr>';
+		var thead = $("#amida_head");
+		thead.html(tr);
+		$("#amida_head > input:button").click(on_click_go);
 	};
 
-	var makeAmidaFoot = function(entries){
-		var tfoot = $("amida_foot");
-		removeAllChild(tfoot);
-		var tr = document.createElement("tr");
-		var c, len = entries.length;
-		for ( c = 0; c < len; ++c ){
-			var th = document.createElement("th");
-			th.appendChild( document.createTextNode(entries[c]) );
-			tr.appendChild(th);
+	var make_amida_foot = function(entries){
+		var tr = '<tr>';
+		for ( var c = 0, len = entries.length; c < len; ++c ){
+			tr += '<th>' + entries[c] + '</th>';
 		}
-		tfoot.appendChild(tr);
+		tr += '</tr>';
+		$("#amida_foot").html(tr);
 	};
 
-	var makeAmidaBody = function(entries){
-		var tbody = $("amida_body");
-		removeAllChild(tbody);
-
+	var make_amida_body = function(entries){
 		var step_count = g_amida.getStepCount();
 		var r, row_len = step_count + AMIDA_FOOT;
 		var c, col_len = entries.length;
-		var tr, td;
+		var tr = '';
 		for ( r = 0; r < row_len; ++r ){
-			tr = document.createElement("tr");
-			tbody.appendChild(tr);
+			tr += '<tr>';
 			for ( c = 0; c < col_len; ++c ){
-				td = document.createElement("td");
-				td.appendChild( document.createTextNode(" ") );
-				tr.appendChild(td);
-				addClassName(td, "pole");
 				if ( g_amida.isLadder(r, c) ){
-					addClassName(td, "bordered");
+					tr += '<td class="pole bordered"> </td>';
+				} else {
+					tr += '<td class="pole"> </td>';
 				}
 			}
+			tr += '</tr>';
 		}
-	};
-
-	var removeAllChild = function(element){
-		while ( element.childNodes.length ){
-			element.removeChild( element.childNodes[0] );
-		}
+		$("#amida_body").html(tr);
 	};
 
 	var on_click_go = function(e){
-		var thead = $("amida_head");
-		var inpNodes = thead.getElementsByTagName("input");
-		var inps = [];
-		var i, len = inpNodes.length;
-		for ( i = 0; i < len; ++i ){
-			if ( inpNodes[i].type === "text" ){
-				inps.push( inpNodes[i] );
-			}
+		var inps = $("#amida_head > input:text");
+		var id = $(this).attr('idnum');
+		if ( inps[id].val() === "" ){
+			inps[id].val("Unknown" + (id + 1));
 		}
-
-		if ( inps[this.idnum].value === "" ){
-			inps[this.idnum].value = "Unknown" + (this.idnum + 1);
-		}
-
-		clearLotLine();
-		drawLotLine(this.idnum, inps[this.idnum].value);
+		clear_lot_line();
+		draw_lot_line(id, inps[id].val());
 	};
 
-	var clearLotLine = function(){
-		var tds = $("amida_body").getElementsByTagName("td");
-		var i, len = tds.length;
-		for ( i = 0; i < len; ++i ){
-			removeClassName(tds[i], "rooting_l", "rooting_b");
+	var clear_lot_line = function(){
+		var tds = $("#amida_body > td");
+		for ( var i = 0, len = tds.length; i < len; ++i ){
+			tds[i].removeClass("rooting_l");
+			tds[i].removeClass("rooting_b");
 		}
 	};
 
-	var drawFunc = function(r, f, t){
-		addClassName( getTargetCell(r, f), "rooting_l" );
+	var draw_lot = function(r, f, t){
+		var targ = get_target_cell(r, f);
+		targ.addClass("rooting_l");
 		if ( f < t ){
-			addClassName( getTargetCell(r, f), "rooting_b" );
+			targ.addClass("rooting_b");
 		}
 		else if ( f > t ){
-			addClassName( getTargetCell(r, t), "rooting_b" );
+			targ.addClass("rooting_b");
 		}
 	};
 
-	var drawLotLine = function(idnum, name){
-		var result = g_amida.draw(idnum, drawFunc);
+	var draw_lot_line = function(idnum, name){
+		var result = g_amida.draw(idnum, draw_lot);
 		var step_count = g_amida.getStepCount();
 		var r, len = step_count + AMIDA_FOOT;
 		for ( r = step_count; r < len; ++r ){
 			addClassName( getTargetCell(r, result), "rooting_l" );
 		}
-
-		var th = $("amida_foot").getElementsByTagName("th")[result];
-		th.style.color = "black";
+		var th = $("#amida_foot > th:eq("+result+")").css("color", "black");
 	};
 
-	var getTargetCell = function(r, c){
-		var tr = $("amida_body").getElementsByTagName("tr")[r];
-		return tr.getElementsByTagName("td")[c];
+	var get_target_cell = function(r, c){
+		return $("#amida_body > tr:eq("+r+") > td:eq("+c+")");
 	};
 
 	/**
 	 * Initialize
 	 */
 
-	addListener( window, "load", function(){
-		addListener( $("text_entry"), "keydown", on_keydown );
-		addListener( $("btn_entry"), "click", on_btn_entry );
-		addListener( $("btn_remove"), "click", on_btn_remove );
-		addListener( $("btn_clear"), "click", on_btn_clear );
-		addListener( $("btn_make"), "click", on_btn_make );
-		$("text_entry").focus();
-		if ( loadEntries() ) makeAmida();
-	});
+	$("#text_entry").focus();
+	if ( load_entries() ) make_amida();
 
-})();
+});
