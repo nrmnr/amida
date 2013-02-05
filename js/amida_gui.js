@@ -37,6 +37,31 @@ $(function(){
 		refresh_count();
 	};
 
+	var append_option_from = function(textarea){
+		console.log(textarea.val());
+	};
+
+	$("#dlg_batch").dialog({
+		autoOpen: false,
+		title: "ゴールをまとめて入力",
+		closeOnEscape: true,
+		modal: true,
+		buttons: {
+			"OK": function(){
+				append_option_from($("#dlg_batch textarea"));
+				$(this).dialog("close");
+			},
+			"キャンセル": function(){
+				$(this).dialog("close");
+			}
+		}
+	});
+
+	$("#btn_batch").click(function(){
+		console.log("test");
+		$("#dlg_batch").dialog("open");
+	});
+
 	$("#btn_remove").click(function(){
 		var opts = $("#sel_entry > option");
 		for ( var i = opts.length - 1; i >= 0; --i ){

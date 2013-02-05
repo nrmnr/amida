@@ -23,6 +23,10 @@
 #btn_entry {
 }
 
+#btn_batch {
+	float: right;
+}
+
 #sel_entry {
 	width: 10em;
 }
@@ -31,6 +35,15 @@
 }
 
 #btn_clear {
+}
+
+#dlg_batch {
+	display: hidden;
+}
+
+#dlg_batch textarea {
+	width: 15em;
+	height: 10em;
 }
 
 .make {

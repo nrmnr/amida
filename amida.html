@@ -6,7 +6,9 @@
 	<meta name="keywords" content="あみだくじ 阿弥陀籤">
 	<meta name="description" content="あみだくじツール">
 	<link rel="stylesheet" href="css/amida.css" media="all">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css" rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 	<script src="js/amida.js"></script>
 	<script src="js/amida_gui.js"></script>
 </head>
@@ -21,6 +23,9 @@
 			<input type="text" id="text_entry"></input>
 			<input type="button" value="追加 >>" id="btn_entry"></input>
 		</div>
+		<div>
+			<input type="button" value="まとめて入力" id="btn_batch"></input>
+		</div>
 	</div>
 	<div class="inputs">
 		<div>
@@ -33,6 +38,10 @@
 			<input type="button" value="削除" id="btn_remove"></input><br>
 			<input type="button" value="クリア" id="btn_clear"></input>
 		</div>
+	</div>
+
+	<div id="dlg_batch">
+		<textarea></textarea>
 	</div>
 
 	<div class="make">
