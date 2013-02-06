@@ -38,7 +38,17 @@ $(function(){
 	};
 
 	var append_option_from = function(textarea){
-		console.log(textarea.val());
+		var text = textarea.val();
+		var entries = text.split(/\n/);
+		var html = "";
+		for ( var i = 0, l = entries.length; i < l; ++i ){
+			var entry = $.trim(entries[i]);
+			if (entry === "") continue;
+			html += "<option>" + entry + "</option>";
+		}
+		$("#sel_entry").append($(html));
+		refresh_count();
+		$("#text_entry").select().focus();
 	};
 
 	$("#dlg_batch").dialog({
@@ -58,7 +68,6 @@ $(function(){
 	});
 
 	$("#btn_batch").click(function(){
-		console.log("test");
 		$("#dlg_batch").dialog("open");
 	});
 
