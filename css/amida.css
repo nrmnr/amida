@@ -118,7 +118,13 @@ td.rooting_b {
 #amida_foot th {
 	text-align: left;
 	vertical-align: top;
-	color: white;
+	position: relative;
+	height: 30px;
+}
+
+#amida_foot th div {
+	visibility: hidden;
+	position: absolute;
 }
 
 #usage {

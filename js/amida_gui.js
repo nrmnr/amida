@@ -177,7 +177,7 @@ $(function(){
 	var make_amida_foot = function(entries){
 		var tr = '<tr>';
 		for ( var c = 0, len = entries.length; c < len; ++c ){
-			tr += '<th>' + entries[c] + '</th>';
+			tr += '<th><div>' + entries[c] + '</div></th>';
 		}
 		tr += '</tr>';
 		$("#amida_foot").html(tr);
@@ -239,7 +239,7 @@ $(function(){
 		for ( r = step_count; r < len; ++r ){
 			get_target_cell(r, result).addClass("rooting_l");
 		}
-		var th = $("#amida_foot th:eq("+result+")").css("color", "black");
+		var th = $("#amida_foot th div:eq("+result+")").css("visibility", "visible");
 	};
 
 	var get_target_cell = function(r, c){
