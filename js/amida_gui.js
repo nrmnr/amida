@@ -103,6 +103,7 @@ $(function(){
 			nextYear.setFullYear(nextYear.getFullYear() + 1);
 			document.cookie = COOKIEENTRY + encodeURIComponent(entries.join(",")) + "; expires=" + nextYear.toGMTString();
 			make_amida();
+			scroll_to_amida();
 		}
 	});
 
@@ -243,6 +244,11 @@ $(function(){
 
 	var get_target_cell = function(r, c){
 		return $("#amida_body > tr:eq("+r+") > td:eq("+c+")");
+	};
+
+	var scroll_to_amida = function(){
+		var pos = $("#amida_screen").offset().top;
+		$("html,body").animate({ scrollTop: pos }, "fast");
 	};
 
 	/**
