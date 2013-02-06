@@ -128,7 +128,11 @@ td.rooting_b {
 	background-color: #f2f2ea;
 }
 
-#usage .note {
+.note {
 	text-indent: -1em;
 	margin-left: 1em;
+}
+
+#dlg_batch .note {
+	font-size: 80%;
 }
