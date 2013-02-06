@@ -89,19 +89,19 @@ td {
 }
 
 td.pole {
-	border-left: 1px solid black;
+	border-left: 4px solid #999;
 }
 
 td.bordered {
-	border-bottom: 1px solid black;
+	border-bottom: 4px solid #999;
 }
 
 td.rooting_l {
-	border-left: 2px solid red;
+	border-left: 4px solid red;
 }
 
 td.rooting_b {
-	border-bottom: 2px solid red;
+	border-bottom: 4px solid red;
 }
 
 #amida_head th {
@@ -111,6 +111,7 @@ td.rooting_b {
 }
 
 .player {
+	font-size: 110%;
 	width: 60px;
 }
 
