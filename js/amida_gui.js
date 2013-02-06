@@ -4,7 +4,7 @@
 
 $(function(){
 
-	var AMIDA_STEP = 20;
+	var AMIDA_STEP = 25;
 	var AMIDA_FOOT = 5;
 
 	var g_amida = null;
