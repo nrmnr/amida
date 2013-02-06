@@ -57,7 +57,7 @@ $(function(){
 		closeOnEscape: true,
 		modal: true,
 		buttons: {
-			"OK": function(){
+			"追加": function(){
 				append_option_from($("#dlg_batch textarea"));
 				$(this).dialog("close");
 			},
