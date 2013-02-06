@@ -207,7 +207,7 @@ $(function(){
 		var id = Number(btn.attr('idnum'));
 		var inp = $(inps[id]);
 		if ( inp.val() === "" ){
-			inp.val("Player" + (id + 1));
+			inp.val("P-" + (id + 1));
 		}
 		clear_lot_line();
 		draw_lot_line(id, inp.val());
