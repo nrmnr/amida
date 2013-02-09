@@ -181,6 +181,7 @@ $(function(){
 		}
 		tr += '</tr>';
 		$("#amida_foot").html(tr);
+		$("#amida_foot .terminator:odd").css("top", "20px");
 	};
 
 	var make_amida_body = function(entries){
