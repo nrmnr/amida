@@ -162,10 +162,10 @@ $(function(){
 	var make_amida_head = function(num){
 		var tr = '<tr>';
 		for ( var c = 0; c < num; ++c ){
-			tr += '<th>';
-			tr += '<input type="text" class="player"/>';
-			tr += '<div><input type="button" value="Go" idnum="' + c + '" /></div>';
-			tr += '</th>';
+			tr += '<th><div class="terminator">';
+			tr += '<div class="player"><input type="text"/></div>';
+			tr += '<div class="btn_lot"><input type="button" value="Go" idnum="' + c + '" /></div>';
+			tr += '</div></th>';
 		}
 		tr += '</tr>';
 		$("#amida_head").html(tr);
@@ -177,7 +177,7 @@ $(function(){
 	var make_amida_foot = function(entries){
 		var tr = '<tr>';
 		for ( var c = 0, len = entries.length; c < len; ++c ){
-			tr += '<th><div>' + entries[c] + '</div></th>';
+			tr += '<th><div class="terminator goal_entry">' + entries[c] + '</div></th>';
 		}
 		tr += '</tr>';
 		$("#amida_foot").html(tr);

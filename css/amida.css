@@ -86,6 +86,7 @@ td {
 	padding: 0px;
 	border: 0px solid;
 	height: 15px;
+	width: 60px;
 }
 
 td.pole {
@@ -104,27 +105,27 @@ td.rooting_b {
 	border-bottom: 4px solid red;
 }
 
-#amida_head th {
-	text-align: left;
-	vertical-align: top;
-	height: 30px;
-}
-
-.player {
-	font-size: 110%;
-	width: 60px;
-}
-
-#amida_foot th {
-	text-align: left;
-	vertical-align: top;
+#amida_head th, #amida_foot th {
+	height: 50px;
 	position: relative;
-	height: 30px;
+	vertical-align: top;
 }
 
-#amida_foot th div {
-	visibility: hidden;
+.terminator {
 	position: absolute;
+	width: 60px;
+	left: -30px;
+	text-align: center;
+}
+
+.player input {
+	font-size: 110%;
+	height: 22px;
+	width: 55px;
+}
+
+.goal_entry {
+	visibility: hidden;
 }
 
 #usage {
