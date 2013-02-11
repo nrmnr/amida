@@ -86,7 +86,7 @@ td {
 	padding: 0px;
 	border: 0px solid;
 	height: 15px;
-	width: 60px;
+	/* width: 60px; */
 }
 
 td.pole {
@@ -106,7 +106,7 @@ td.rooting_b {
 }
 
 #amida_head th, #amida_foot th {
-	height: 50px;
+	height: 60px;
 	position: relative;
 	vertical-align: top;
 }

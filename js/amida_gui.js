@@ -132,6 +132,7 @@ $(function(){
 		var len = entries.length;
 		if ( len >= 2 ){
 			randomize_array(entries);
+			conf_amida_width(len);
 			make_amida_head(len);
 			make_amida_foot(entries);
 			g_amida = new Amida(len, AMIDA_STEP);
@@ -157,6 +158,10 @@ $(function(){
 			if ( opts[i].text ) entries.push( opts[i].text );
 		}
 		return entries;
+	};
+
+	var conf_amida_width = function(num){
+		$("#amida_table").css("width", (num * 62)+"px");
 	};
 
 	var make_amida_head = function(num){
