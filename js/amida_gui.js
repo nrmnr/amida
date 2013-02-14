@@ -56,6 +56,8 @@ $(function(){
 		title: "ゴールをまとめて入力",
 		closeOnEscape: true,
 		modal: true,
+		closeText: "",
+		width: 250,
 		buttons: {
 			"追加": function(){
 				append_option_from($("#dlg_batch textarea"));
