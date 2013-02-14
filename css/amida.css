@@ -107,12 +107,11 @@ td.rooting_b {
 
 #amida_head th, #amida_foot th {
 	height: 60px;
-	position: relative;
 	vertical-align: top;
 }
 
 .terminator {
-	position: absolute;
+	position: relative;
 	width: 60px;
 	left: -30px;
 	text-align: center;
